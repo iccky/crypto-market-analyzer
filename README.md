@@ -122,3 +122,77 @@ MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 ---
 
 🚀 **Built with Python + CoinGecko API**
+
+---
+
+## 🚀 Deploy ke Vercel (Serverless)
+
+### Langkah 1: Install Vercel CLI
+```bash
+npm i -g vercel
+```
+
+### Langkah 2: Login ke Vercel
+```bash
+vercel login
+```
+
+### Langkah 3: Deploy
+```bash
+cd crypto-market-analyzer
+vercel --prod
+```
+
+### Struktur Vercel
+```
+crypto-market-analyzer/
+├── api/
+│   └── index.py          # Flask app untuk Vercel Serverless
+├── crypto_analyzer/      # Core modules
+│   ├── api.py
+│   ├── technical.py
+│   ├── signals.py
+│   └── formatter.py
+├── vercel.json           # Vercel config
+├── requirements.txt      # Dependencies (include Flask)
+└── README.md
+```
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Web interface (HTML) |
+| `/api/analyze/{coin}` | GET | Analisis teknikal coin |
+| `/api/top/{limit}` | GET | Top coins by market cap |
+| `/api/trending` | GET | Trending coins |
+
+### Contoh API Call
+```bash
+curl https://your-project.vercel.app/api/analyze/solana
+```
+
+Response:
+```json
+{
+  "coin_id": "solana",
+  "name": "Solana",
+  "symbol": "SOL",
+  "current_price": 142.35,
+  "signal": {
+    "signal": "STRONG_BUY",
+    "confidence": 78,
+    "rsi": 62.3,
+    "trend": { "trend": "BULLISH", "strength": 85 }
+  },
+  "setup": {
+    "side": "LONG",
+    "entry_zone_low": 138.50,
+    "entry_zone_high": 140.20,
+    "stop_loss": 131.50,
+    "take_profit_1": 149.80,
+    "take_profit_2": 156.40,
+    "take_profit_3": 163.10
+  }
+}
+```
